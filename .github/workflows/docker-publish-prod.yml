@@ -1,4 +1,4 @@
-name: Docker Image CI && Deploy on render
+name: Docker Image CI
 
 on:
     push:
