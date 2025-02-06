@@ -2,133 +2,135 @@ import { actions } from "./controller.ts";
 import { Router } from "express";
 import { authenticate } from "../../services/auth/auth.ts";
 import { UsersRoleEnum } from "../../utils/enum.ts";
+import { validateBody } from "../../services/validator/body/index.ts";
+import { voucherSchema } from "./middlewares/index.ts";
 const router = Router();
 
 /**
  * @swagger
  * tags:
- *   name: UploadedFiles
- *   description: API endpoints for managing uploaded files
+ *   name: Vouchers
+ *   description: API endpoints for managing vouchers
  */
 
 /**
  * @swagger
- * /uploadedFiles:
+ * /vouchers:
  *   get:
- *     summary: Retrieve a list of uploaded files
- *     tags: [UploadedFiles]
+ *     summary: Retrieve a list of vouchers
+ *     tags: [Vouchers]
  *     responses:
  *       200:
- *         description: A list of uploaded files
+ *         description: A list of vouchers
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/UploadedFile'
+ *                 $ref: '#/components/schemas/Voucher'
  */
-router.get('/', authenticate(false, [UsersRoleEnum.ADMIN]), actions.getAll);
+router.get('/', authenticate(), actions.getAll);
 
 /**
  * @swagger
- * /uploadedFiles/{id}:
+ * /vouchers/{id}:
  *   get:
- *     summary: Retrieve a single uploaded file by ID
- *     tags: [UploadedFiles]
+ *     summary: Retrieve a single voucher by ID
+ *     tags: [Vouchers]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The uploaded file ID
+ *         description: The voucher ID
  *     responses:
  *       200:
- *         description: A single uploaded file
+ *         description: A single voucher
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/UploadedFile'
+ *               $ref: '#/components/schemas/Voucher'
  *       404:
- *         description: Uploaded file not found
+ *         description: Voucher not found
  */
-router.get('/:id', authenticate(false, [UsersRoleEnum.ADMIN]), actions.getById);
+router.get('/:id', authenticate(), actions.getById);
 
 /**
  * @swagger
- * /uploadedFiles:
+ * /vouchers:
  *   post:
- *     summary: Upload a new file
- *     tags: [UploadedFiles]
+ *     summary: Create a new voucher
+ *     tags: [Vouchers]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UploadedFile'
+ *             $ref: '#/components/schemas/Voucher'
  *     responses:
  *       201:
- *         description: The uploaded file
+ *         description: The created voucher
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/UploadedFile'
+ *               $ref: '#/components/schemas/Voucher'
  *       400:
  *         description: Bad request
  */
-router.post('/', authenticate(false, [UsersRoleEnum.ADMIN]), actions.create);
+router.post('/', authenticate(false, [UsersRoleEnum.ADMIN]), validateBody(voucherSchema), actions.create);
 
 /**
  * @swagger
- * /uploadedFiles/{id}:
+ * /vouchers/{id}:
  *   put:
- *     summary: Update an existing uploaded file
- *     tags: [UploadedFiles]
+ *     summary: Update an existing voucher
+ *     tags: [Vouchers]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The uploaded file ID
+ *         description: The voucher ID
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/UploadedFile'
+ *             $ref: '#/components/schemas/Voucher'
  *     responses:
  *       200:
- *         description: The updated uploaded file
+ *         description: The updated voucher
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/UploadedFile'
+ *               $ref: '#/components/schemas/Voucher'
  *       400:
  *         description: Bad request
  *       404:
- *         description: Uploaded file not found
+ *         description: Voucher not found
  */
 router.put('/:id', authenticate(false, [UsersRoleEnum.ADMIN]), actions.update);
 
 /**
  * @swagger
- * /uploadedFiles/{id}:
+ * /vouchers/{id}:
  *   delete:
- *     summary: Permanently delete an uploaded file
- *     tags: [UploadedFiles]
+ *     summary: Permanently delete a voucher
+ *     tags: [Vouchers]
  *     parameters:
  *       - in: path
  *         name: id
  *         schema:
  *           type: string
  *         required: true
- *         description: The uploaded file ID
+ *         description: The voucher ID
  *     responses:
  *       204:
  *         description: No content
  *       404:
- *         description: Uploaded file not found
+ *         description: Voucher not found
  */
 router.delete('/:id', authenticate(false, [UsersRoleEnum.ADMIN]), actions.deletePermanently);
 

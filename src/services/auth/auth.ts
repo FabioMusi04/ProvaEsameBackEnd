@@ -59,7 +59,7 @@ passport.use(
     )
 );
 
-export const authenticate = (hasMasterKey?: boolean, roles?: UsersRoleEnum[] ) => {
+export const authenticate = (hasMasterKey: boolean = false, roles: UsersRoleEnum[] = [] ) => {
     return (req: Request, res: Response, next: NextFunction) => {
         passport.authenticate('jwt', { session: false }, (err: Error | null, user: IUser | undefined) => {
             if (err) {
