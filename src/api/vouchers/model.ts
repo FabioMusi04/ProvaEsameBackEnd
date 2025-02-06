@@ -52,6 +52,7 @@ const voucherSchema = new ConfigurableSchema<IVoucher, VoucherModel>({
     type: Types.ObjectId,
     ref: 'User',
     required: true,
+    immutable: true,
   },
 }, {
   timestamps: true,

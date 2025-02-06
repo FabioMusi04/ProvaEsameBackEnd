@@ -2,7 +2,7 @@ import { Model } from 'mongoose';
 import { Request, Response } from 'express';
 import { validateFilterFields } from '../queryFilters/index.ts';
 import { getByIdSchema, querySchema } from './middlewares/index.ts';
-import { getFieldsToPopulate } from './populate/index.ts';
+import { getFieldsToPopulate } from '../populate/index.ts';
 
 /* eslint-disable no-unused-vars */
 type ControllerFunctions = {
