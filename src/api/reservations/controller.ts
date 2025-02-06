@@ -1,13 +1,13 @@
 import { generateControllers } from "../../utils/lib/generator/index.ts";
 import { Response } from "express";
-import Offers from "./model.ts";
+import Reservations from "./model.ts";
 import { IUser } from "../users/model.ts";
 
-const actions = generateControllers(Offers, "Offer");
+const actions = generateControllers(Reservations, 'Reservations');
 
 actions.create = async ({ body, user }, res: Response) => {
   try {
-    const offer = await Offers.create({
+    const offer = await Reservations.create({
       ...body,
       userId: (user as IUser)._id,
     });
