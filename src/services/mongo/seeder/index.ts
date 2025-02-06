@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 import User, { IUser } from "../../../api/users/model.ts";
 import connectToDatabase from "../mongo.ts";
 import { generalLogger } from "../../logger/winston.ts";

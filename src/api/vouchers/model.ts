@@ -9,7 +9,7 @@ export interface IVoucher extends Document {
   availableMonths: string[];
   locations: string[];
   maxPeople: number;
-  userId: Types.ObjectId;
+  userId: Schema.Types.ObjectId;
   expiredAt?: Date;
   createdAt?: Date;
   updatedAt?: Date;
@@ -49,7 +49,7 @@ const voucherSchema = new ConfigurableSchema<IVoucher, VoucherModel>({
     type: Date,
   },
   userId: {
-    type: Schema.Types.ObjectId,
+    type: Types.ObjectId,
     ref: 'User',
     required: true,
   },
