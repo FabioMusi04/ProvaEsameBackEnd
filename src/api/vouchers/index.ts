@@ -4,6 +4,8 @@ import { authenticate } from "../../services/auth/auth.ts";
 import { UsersRoleEnum } from "../../utils/enum.ts";
 import { validateBody } from "../../services/validator/body/index.ts";
 import { voucherSchema } from "./middlewares/index.ts";
+import { upload } from "../../../index.ts";
+
 const router = Router();
 
 /**
@@ -78,7 +80,7 @@ router.get('/:id', authenticate(), actions.getById);
  *       400:
  *         description: Bad request
  */
-router.post('/', authenticate(false, [UsersRoleEnum.ADMIN]), validateBody(voucherSchema), actions.create);
+router.post('/', authenticate(false, [UsersRoleEnum.ADMIN]), upload.single('file'), validateBody(voucherSchema), actions.create);
 
 /**
  * @swagger

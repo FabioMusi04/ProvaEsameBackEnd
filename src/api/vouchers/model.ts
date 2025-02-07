@@ -5,6 +5,7 @@ import mongooseToSwagger from 'mongoose-to-swagger';
 export interface IVoucher extends Document {
   name: string;
   description: string;
+  image: Schema.Types.ObjectId;
   basePricePerNightPerPerson: number;
   availableMonths: string[];
   locations: string[];
@@ -71,7 +72,8 @@ const voucherSchema = new ConfigurableSchema<IVoucher, VoucherModel>({
         return expiredAt ? expiredAt.getTime() < new Date().getTime() : false;
       },
     },
-  }, 
+  },
+  
 });
 
 const Voucher = mongoose.model<IVoucher, VoucherModel>('Voucher', voucherSchema);
