@@ -5,8 +5,10 @@ import { ID } from "node-appwrite";
 import { storage } from "./index.ts";
 import { InputFile } from "node-appwrite/file";
 import { generalLogger } from "../logger/winston.ts";
+import { IVoucher } from "../../api/vouchers/model.ts";
+import { LinkedEntityTypeEnum } from "../../utils/enum.ts";
 
-export async function uploadImage(fileBuffer: Buffer, fileName: string, uploaderId: string) {
+export async function uploadImage(fileBuffer: Buffer, fileName: string, voucher: IVoucher) {
     try {
         const response = await storage.createFile(
             Config.appwrite.bucketUploadsId,
@@ -17,11 +19,14 @@ export async function uploadImage(fileBuffer: Buffer, fileName: string, uploader
             ));
 
         const uploadedFile = await UploadedFile.create({
-            uploaderId,
+            uploaderId: voucher.userId,
             documentType: 'image',
             originalName: fileName,
             full: response.$id,
-            linkedEntity: null,
+            linkedEntity: {
+                linkedEntityType: LinkedEntityTypeEnum.VOUCHER_IMAGE,
+                linkedEntityId: voucher._id,
+            },
             metadata: {},
             thumbnail: {},
         });

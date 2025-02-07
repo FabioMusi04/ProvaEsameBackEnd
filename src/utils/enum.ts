@@ -10,3 +10,8 @@ export enum ReservationStatusEnum {
     "CANCELLED" = 'cancelled'
 }
 export const ReservationStatusValues = Object.values(ReservationStatusEnum);
+
+export enum LinkedEntityTypeEnum {
+    "VOUCHER_IMAGE" = 'voucherImage',
+}
+export const LinkedEntityTypeValues = Object.values(LinkedEntityTypeEnum);
