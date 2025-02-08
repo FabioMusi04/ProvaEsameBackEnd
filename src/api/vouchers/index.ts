@@ -31,7 +31,7 @@ const router = Router();
  *               items:
  *                 $ref: '#/components/schemas/Voucher'
  */
-router.get('/', authenticate(), actions.getAll);
+router.get('/', actions.getAll);
 
 /**
  * @swagger

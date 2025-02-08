@@ -1,11 +1,11 @@
 import { ConfigurableSchema } from '../../utils/lib/mongoose/index.ts';
 import mongoose, { Document, Model, Schema, Types } from 'mongoose';
 import mongooseToSwagger from 'mongoose-to-swagger';
+import { LinkedEntityTypeEnum } from '../../utils/enum.ts';
 
 export interface IVoucher extends Document {
   name: string;
   description: string;
-  image: Schema.Types.ObjectId;
   basePricePerNightPerPerson: number;
   availableMonths: string[];
   locations: string[];
@@ -72,8 +72,24 @@ const voucherSchema = new ConfigurableSchema<IVoucher, VoucherModel>({
         return expiredAt ? expiredAt.getTime() < new Date().getTime() : false;
       },
     },
+    images: {
+      ref: 'uploadedFiles',
+      localField: '_id',
+      foreignField: 'linkedEntity.linkedEntityId',
+      options: {
+        match: { 'linkedEntity.linkedEntityType': LinkedEntityTypeEnum.VOUCHER_IMAGE },
+      },
+    },
+    coverImage: {
+      ref: 'uploadedFiles',
+      localField: '_id',
+      foreignField: 'linkedEntity.linkedEntityId',
+      justOne: true,
+      options: {
+        match: { 'linkedEntity.linkedEntityType': LinkedEntityTypeEnum.VOUCHER_COVER_IMAGE },
+      },
+    },
   },
-  
 });
 
 const Voucher = mongoose.model<IVoucher, VoucherModel>('Voucher', voucherSchema);

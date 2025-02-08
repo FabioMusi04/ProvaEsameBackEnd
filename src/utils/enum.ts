@@ -13,5 +13,6 @@ export const ReservationStatusValues = Object.values(ReservationStatusEnum);
 
 export enum LinkedEntityTypeEnum {
     "VOUCHER_IMAGE" = 'voucherImage',
+    "VOUCHER_COVER_IMAGE" = 'voucherCoverImage',
 }
 export const LinkedEntityTypeValues = Object.values(LinkedEntityTypeEnum);
