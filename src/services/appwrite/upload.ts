@@ -8,7 +8,7 @@ import { generalLogger } from "../logger/winston.ts";
 import { IVoucher } from "../../api/vouchers/model.ts";
 import { LinkedEntityTypeEnum } from "../../utils/enum.ts";
 
-export async function uploadImage(fileBuffer: Buffer, fileName: string, voucher: IVoucher) {
+export async function uploadImage(fileBuffer: Buffer, fileName: string, voucher: IVoucher, linkedEntityType: LinkedEntityTypeEnum = LinkedEntityTypeEnum.VOUCHER_IMAGE): Promise<UploadedFile> {
     try {
         const response = await storage.createFile(
             Config.appwrite.bucketUploadsId,
@@ -24,7 +24,7 @@ export async function uploadImage(fileBuffer: Buffer, fileName: string, voucher:
             originalName: fileName,
             full: response.$id,
             linkedEntity: {
-                linkedEntityType: LinkedEntityTypeEnum.VOUCHER_IMAGE,
+                linkedEntityType: linkedEntityType,
                 linkedEntityId: voucher._id,
             },
             metadata: {},

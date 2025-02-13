@@ -49,7 +49,7 @@ export function generateControllers<T>(model: Model<T>, name: string): Controlle
                 const { page = 1, limit = 10, filter = {}, sort = {} } = validatedQuery;
 
                 const filterObject = validateFilterFields(filter as string, model.schema);
-
+                console.log(filterObject);
                 const populateFields = getFieldsToPopulate(model.schema);
                 
                 const docs = await model

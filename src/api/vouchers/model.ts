@@ -77,24 +77,28 @@ const voucherSchema = new ConfigurableSchema<IVoucher, VoucherModel>({
       },
     },
     images: {
-      ref: 'uploadedFiles',
-      localField: '_id',
-      foreignField: 'linkedEntity.linkedEntityId',
       options: {
+        ref: 'UploadedFile',
+        localField: '_id',
+        foreignField: 'linkedEntity.linkedEntityId',
         match: { 'linkedEntity.linkedEntityType': LinkedEntityTypeEnum.VOUCHER_IMAGE },
       },
     },
     coverImage: {
-      ref: 'uploadedFiles',
-      localField: '_id',
-      foreignField: 'linkedEntity.linkedEntityId',
-      justOne: true,
       options: {
+        ref: 'UploadedFile',
+        localField: '_id',
+        foreignField: 'linkedEntity.linkedEntityId',
         match: { 'linkedEntity.linkedEntityType': LinkedEntityTypeEnum.VOUCHER_COVER_IMAGE },
-      },
+        justOne: true,
+      }
     },
   },
 });
+
+voucherSchema.set('toObject', { virtuals: true })
+voucherSchema.set('toJSON', { virtuals: true })
+
 
 const Voucher = mongoose.model<IVoucher, VoucherModel>('Voucher', voucherSchema);
 export const swaggerSchema = mongooseToSwagger(Voucher);

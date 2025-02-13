@@ -23,6 +23,7 @@ const offerSchema = new ConfigurableSchema<IOffer, OfferModel>({
     ref: 'Voucher',
     required: true,
     immutable: true,
+    q: true,
   },
   month: {
     type: String,

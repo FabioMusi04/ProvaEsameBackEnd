@@ -7,5 +7,12 @@ export function getFieldsToPopulate(schema: Schema): string[] {
       fieldsToPopulate.push(key);
     }
   }
+
+  for(const key in schema.virtuals as Record<string, unknown>) {
+    if (schema.virtuals[key] && typeof schema.virtuals[key] === 'object' && 'ref' in schema.virtuals[key]?.options) {
+      fieldsToPopulate.push(key);
+    }
+  }
+
   return fieldsToPopulate;
 }
