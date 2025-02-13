@@ -37,17 +37,21 @@ const voucherSchema = new ConfigurableSchema<IVoucher, VoucherModel>({
   availableMonths: {
     type: [String],
     required: true,
+    q: true,
   },
   locations: {
     type: [String],
     required: true,
+    q: true,
   },
   maxPeople: {
     type: Number,
     required: true,
+    q: true,
   },
   expiredAt: {
     type: Date,
+    q: true,
   },
   userId: {
     type: Types.ObjectId,
