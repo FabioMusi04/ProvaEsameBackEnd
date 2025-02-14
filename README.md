@@ -1,3 +1,4 @@
+
 # TypeScript Node.js Starter Kit Documentation
 
 This starter kit is a boilerplate project designed to accelerate the development of scalable Node.js applications using TypeScript. It integrates several essential features and best practices for modern backend development.
@@ -28,6 +29,7 @@ src/
 │   │   ├── model.ts         # Mongoose user schema
 │   │   └── index.ts         # Export file
 ├── services/
+│   ├── appwrite/            # Appwrite integration  
 │   ├── auth/                # Authentication services
 │   │   ├── auth.ts          # Auth helper functions
 │   │   └── jwt.ts           # JWT logic
@@ -136,6 +138,7 @@ npm install
 ### 2. **Set Up Environment Variables**
 
 Create a `.env` file based on `.env.example` (example below):
+For only this case, i will send them in chat.
 
 ```plaintext
 MONGO_URI=your_mongodb_connection
@@ -159,7 +162,11 @@ npm run docs
 
 The documentation will be available in `src/services/docs`.
 
-### 5. **Run Tests**
+### 5. **Swagger UI**
+
+To view the Swagger UI, navigate to `http://localhost:9000/api-docs`.
+
+### 6. **Run Tests**
 
 ```bash
 npm run test
